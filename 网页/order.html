@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>work1</title>
+<script src="../jQuery/jquery-3.3.1.js" type="text/javascript"></script>
+<script type="text/javascript">
+	$(function(){
+		$("tr").hover(function(){},function(){});
+		$("body").on("click",".del",function(){
+			if(confirm("确定删除?")){
+			$(this).parent().parent().remove();
+			}
+		});
+		$("body").on("click",".yes",function(){
+			if(confirm("确定修改?")){
+			var $td2 = $("<td id='d1'>"+$("#score2").val()+"</td>");
+			$("#score2").replaceWith($td2);
+			$("#score2").val("");
+			}
+		});
+		$("body").on("click",".cg",function(){
+			$(this).parents("tr").find("td").eq(2).empty();
+			var td = $(this).parents("tr").find("td").eq(2);
+			var $td = $("<input id='score2'></input>");
+			$td.type="text";
+    		$td.value = td.innerHTML;
+			td.append($td);
+			var $btn = $("<button class='yes'>确定</button>");
+			$(this).parents("tr").find("td").eq(3).append($btn);
+		});
+		$("#add").click(function(){
+			var $tr = $("<tr><td>"+$("#sn").val()+
+			"</td><td>"+$("#name").val()+"</td><td>"+$("#score").val()+
+			"</td><td><button class='del'>删除</button><button class='cg'>修改</button></td></tr>");
+			$("#trInPut").before($tr);
+			$("#sn").val("").focus();
+			$("#name").val("");
+			$("#score").val("");
+		});
+	})
+</script>
+<style>
+	#d1{border:none;}
+	.css1{background:#FF0}
+	th1{float:left}
+</style>
+</head>
+
+<body>
+	<table>
+    	<tr id="th1">
+        	<th>书名</th>
+            <th>作者</th>
+            <th>价格</th>
+            <th>操作</th>
+        </tr>
+        <tr>
+        	<td>简爱</th>
+            <td>夏洛蒂</th>
+            <td>24</th>
+            <td><button class='del'>删除</button><button class='cg'>修改</button></th>
+        </tr>
+        <tr>
+        	<td>老人与海</th>
+            <td>海明威</th>
+            <td>20</th>
+            <td><button class='del'>删除</button><button class='cg'>修改</button></th>
+        </tr>
+        
+        <tr id="trInPut">
+        	<td><input id="sn" type="text" name="sn"></td>
+            <td><input id="name" type="text" name="nm"></td>
+            <td><input id="score" type="text" name="score"></td>
+            <td><button id="add">添加</button></td>
+        </tr>
+    </table>
+</body>
+</html>

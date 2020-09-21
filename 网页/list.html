@@ -1,0 +1,77 @@
+
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>图书列表</title>
+
+<style type="text/css">
+table { font-size:12px; width:100%; table-layout:fixed; empty-cells:show; border-collapse: collapse; margin:0 auto; border:1px solid #cad9ea; color:#666; }
+th { background-image: url(img/images/th_bg1.gif); background-repeat:repeat-x; height:30px; cursor:pointer; }
+td { height:20px; }
+td, th { border:1px solid #cad9ea; padding:0 1em 0; }
+td.sorted { background: #ffd; }
+th.sorted-asc { background: url('img/images/icons/arrow_up.png') no-repeat 0 50%; }
+th.sorted-desc { background: url('img/images/icons/arrow_down.png') no-repeat 0 50%; }
+tr.even, tr.first { background-color: #fff; }
+tr.odd, tr.second { background-color: #f5fafe; }
+tr.third { background-color: #ccc; }
+tr.odd_row{background-color:#e4f2fb}	
+tr.even_row{background-color: #f8f8f8}
+tr.odd_row:hover,tr.even_row:hover,tr.odd_row:hover a,tr.even_row:hover a{background-color:#ffd900}
+</style>
+
+<script src="../jQuery/jquery-3.3.1.js"></script>
+<script src="../jQuery/jquery.tablesorter.js"></script>
+<script src="../jQuery/jquery.tablePagination.0.2.js"></script>
+<script src="../jQuery/jquery.uitablefilter.js"></script>
+<script src="../jQuery/tableRowCheckboxToggle.js"></script>
+<script>
+	var data = [{"id":"01","name":"老人与海","course":"海明威","score":"20"},
+ 				{"id":"02","name":"悲惨世界","course":"雨果","score":"17"},
+ 				{"id":"03","name":"巴黎圣母院","course":"雨果","score":"18"},
+ 				{"id":"04","name":"昆虫记","course":"法布尔","score":"22"},
+ 				{"id":"05","name":"鲁滨孙漂流记","course":"鲁滨孙","score":"30"},
+ 				{"id":"06","name":"假如给我三天光明","course":"海伦凯乐","score":"26"},
+ 				{"id":"07","name":"简爱","course":"夏洛蒂·勃朗特","score":"24"}
+			   ];
+	$(function(){
+			$.each(data,function(i,v){
+				$("tbody").append($("<tr><td><input type='checkbox' id='checkme"+i+"'/></td></tr>"));
+				$("tbody tr:last-child").append($("<td>"+v.id+"</td>"));
+				$("tbody tr:last-child").append($("<td>"+v.name+"</td>"));
+				$("tbody tr:last-child").append($("<td>"+v.course+"</td>"));
+				$("tbody tr:last-child").append($("<td>"+v.score+"</td>"));
+			})
+		$("tbody>tr:even").addClass("even_row");
+		$("tbody>tr:odd").addClass("odd_row");
+		
+	})
+</script>
+
+</head>
+
+<body>
+	<div width="100%" border="0">
+			<div style="text-align:left; padding-left:220px">
+				Search 
+				<input type="text" name="textfield" class="inputtable" id="textfield" value="请输入书名"/> 
+				<img src="../images/serchbutton.gif" border="0" style="margin-bottom:-4px"/> 
+			</div>
+		
+	</div>
+	<table id="grid" class="filter">
+		<thead>
+			<td></td>
+			<th>编号</th>
+			<th>书名</th>
+			<th>作者</th>
+			<th>价格</th>
+		</thead>
+		<tbody>
+			
+		</tbody>
+	</table>
+    
+</body>
+</html>

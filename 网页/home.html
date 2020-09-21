@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Demo12</title>
+<style>
+	#banner{
+	width:100%;
+	height:80px;
+	background-image:url(../images/9.jpg);
+	background-position:top center;
+	margin:0 auto;
+}
+	#main{width:auto;background-color:silver;margin:5px  auto;}
+	#accordion,#tabs{float:left}
+	#accordion{width:15%;}
+	#tabs{width:84%;margin:0px auto}
+	#accordion p{cursor:pointer}
+</style>
+<link href="../jQuery/jquery-ui.css" rel="stylesheet" />
+<script src="../jQuery/jquery-3.3.1.min.js"></script>
+<script src="../jQuery/jquery-ui.js"></script>
+<script>
+	$(function(){
+		var funList = ["sysTab"];
+		var funPage={
+			"role":["<li id='roleTab'><a href='#roleTabPage'>正在热卖</a></li>",
+		"<div id='roleTabPage'><iframe style='height:80vh' name='tab1' marginwidth='0' marginheight='0' width='100%' src='remai.html' frameborder='0'></iframe></div>"],
+		"pms":["<li id='pmsTab'><a href='#pmsTabPage'>已售空</a></li>",
+		"<div id='pmsTabPage'><iframe style='height:80vh' name='tab1' marginwidth='0' marginheight='0' width='100%' src='shoukong.html' frameborder='0'></iframe></div>"],
+		"data":["<li id='dataTab'><a href='#dataTabPage'>即将上架</a></li>",
+		"<div id='dataTabPage'><iframe style='height:80vh' name='tab1' marginwidth='0' marginheight='0' width='100%' src='shangjia.html' frameborder='0'></iframe></div>"],
+		"list":["<li id='listTab'><a href='#listTabPage'>图书列表</a></li>",
+		"<div id='listTabPage'><iframe style='height:80vh' name='tab1' marginwidth='0' marginheight='0' width='100%' src='list.html' frameborder='0'></iframe></div>"],
+		"order":["<li id='orderTab'><a href='#orderTabPage'>编辑订单</a></li>",
+		"<div id='orderTabPage'><iframe style='height:80vh' name='tab1' marginwidth='0' marginheight='0' width='100%' src='order.html' frameborder='0'></iframe></div>"]}
+		$("#dialog").dialog({autoOpen:false,modal:true});
+		$("#accordion").accordion();
+		$("#tabs").tabs();
+		$("#accordion p").click(function(){
+			//alert(this.id);
+			var index = funList.indexOf(this.id+"Tab");
+			if(index<0){
+				funList.push(this.id+"Tab");
+				$("#tabs ul").append($(funPage[this.id][0]));
+				$("#tabs").append($(funPage[this.id][1]));
+				$("#"+this.id+"TabPage").load(this.id+".html");
+				$("#tabs").tabs("refresh").tabs({active:funList.length-1});
+			}
+			else
+				$("#tabs").tabs({active:index});
+		})
+		$("#tabs ul").on("dblclick","li",function(){
+			var id = this.id;
+			if(id=="sysTab") return;
+			$("#dialog").dialog({buttons:{
+				OK:function(){
+					$("#"+id).remove();
+					$("#"+id+"Page").remove();
+					funList.splice(funList.indexOf(id),1);
+					$(this).dialog("close");
+					$("#tabs").tabs("refresh").tabs({active:funList.length-1});
+					//alert(funList);
+				},
+				Cancel:function(){
+					$(this).dialog("close");	
+				}	
+			}}).dialog("open");	
+		});
+	})
+</script>
+</head>
+
+<body>
+	<div id="dialog" title="删除确认"><p>确定要删除吗？</p></div>
+	<div id="banner"><center><h1>图书管理系统</h1></center></div>
+    <div id="main">
+		<div id="accordion">
+        	<h3>图书管理</h3>
+            <div>
+            	<p id="role">正在热卖</p>
+                <p id="pms">已售空</p>
+                <p id="data">即将上架</p>
+            </div>
+            <h3>图书详情</h3>
+            <div>
+            	<p id="list">图书列表</p>
+            </div>
+            <h3>订单管理</h3>
+            <div>
+            	<p id="order">编辑订单</p>
+            </div>
+        </div>
+		<div id="tabs">
+    		<ul>
+        		<li id="sysTab"><a href="#sysTabPage">欢迎页</a></li>
+        	</ul>
+        	<div id="sysTabPage"><center><img src="../images/10.jpg" /></center></div>
+    	</div>
+    </div>
+   
+</body>
+</html>
